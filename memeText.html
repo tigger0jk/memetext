@@ -17,6 +17,7 @@ Spaces Per Char: <input type="number" id="inputSpacesPerChar" value=1 min=0><br>
 <script src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.3.0/prototype.js"></script>
 <script>
 
+makeText();
 function makeText() {
   startingWord = "memetext";
   startingWord = document.getElementById("inputText").value;
@@ -95,32 +96,22 @@ function getLine(word, i, numSpacesPerChar, centerSize) {
 		currentCenterSpaces = centerSize - (middleLine - i) * 2;
 		numSpaces = (middleLine - i) * (1 + numSpacesPerChar);
 		numCharsOnSides = i;
-		if(numCharsOnSides > word.length - 1){
-			middleChars = " ".repeat((1 + numSpacesPerChar) * currentCenterSpaces - 1);//this can be one char or spaces
-		} else {
-			middleChars = word[numCharsOnSides];//this can be one char or spaces
-		}
 	//} else if (i >= middleLine - .5 && i <= middleLine + .5) { //attempt at even center sizes
 	} else if (i == middleLine) {
 		currentCenterSpaces = centerSize;
 		numSpaces = 0;
 		numCharsOnSides = Math.min(word.length, i);
-		if(numCharsOnSides > word.length - 1){
-			middleChars = " ".repeat((1 + numSpacesPerChar) * currentCenterSpaces - 1);//this can be one char or spaces
-		} else {
-			middleChars = word[numCharsOnSides];//this can be one char or spaces
-		}
 	} else {
 		// if after halfway point
 		currentCenterSpaces = centerSize - (i - middleLine) * 2;
 		numSpaces = (i - middleLine) * (1 + numSpacesPerChar);
 		numCharsOnSides = numLines - i - 1;
-		if(numCharsOnSides > word.length - 1){
-			middleChars = " ".repeat((1 + numSpacesPerChar) * currentCenterSpaces - 1);//this can be one char or spaces
-		} else {
-			middleChars = word[numCharsOnSides];//this can be one char or spaces
-		}
 	}
+  if(numCharsOnSides > word.length - 1){
+    middleChars = " ".repeat((1 + numSpacesPerChar) * currentCenterSpaces - 1);//this can be one char or spaces
+  } else {
+    middleChars = word[numCharsOnSides];//this can be one char or spaces
+  }
 	line += " ".repeat(numSpaces);
 	sideWord = "";
 	for (var i = 0; i < numCharsOnSides && i < word.length; i++) {
